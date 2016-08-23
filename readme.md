@@ -5,7 +5,7 @@
 ![image](https://raw.githubusercontent.com/EasyToForget/RippleBackground/master/demo02.gif)
 
 
-###开源项目说明
+###Open Source
 
 > **ButterKnife**
 
