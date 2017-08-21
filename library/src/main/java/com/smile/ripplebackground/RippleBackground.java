@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 [zhiye.wei@gmail.com]
+ * Copyright (c) 2017 [zhiye.wei@gmail.com]
  *
  * Licensed under the Apache License, Version 2.0 (the "License”);
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,9 @@ import java.util.ArrayList;
 
 public class RippleBackground extends RelativeLayout {
 
+    // default circle count
     private static final int DEFAULT_RIPPLE_COUNT = 6;
+    // default animator duration
     private static final int DEFAULT_DURATION = 3000;
     private static final float DEFAULT_SCALE = 2.0f;
     private static final int DEFAULT_FILL_TYPE = 0;
@@ -52,12 +54,11 @@ public class RippleBackground extends RelativeLayout {
     private ArrayList<RippleView> list = new ArrayList<>();
 
     public RippleBackground(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public RippleBackground(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context, attrs);
+        this(context, attrs, 0);
     }
 
     public RippleBackground(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -100,21 +101,24 @@ public class RippleBackground extends RelativeLayout {
             RippleView rippleView = new RippleView(context);
             addView(rippleView, params);
             list.add(rippleView);
-            final ObjectAnimator scaleXAnimator = ObjectAnimator.ofFloat(rippleView, "ScaleX", 1.0f, rippleScale);
+
+            ObjectAnimator scaleXAnimator = ObjectAnimator.ofFloat(rippleView, View.SCALE_X, 1.0f, rippleScale);
             scaleXAnimator.setRepeatCount(ObjectAnimator.INFINITE);
             scaleXAnimator.setRepeatMode(ObjectAnimator.RESTART);
             scaleXAnimator.setStartDelay(i * rippleDelay);
             scaleXAnimator.setDuration(rippleDuration);
             scaleXAnimator.setInterpolator(new AccelerateInterpolator());
             animators.add(scaleXAnimator);
-            final ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(rippleView, "ScaleY", 1.0f, rippleScale);
+
+            ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(rippleView, View.SCALE_Y, 1.0f, rippleScale);
             scaleYAnimator.setRepeatCount(ObjectAnimator.INFINITE);
             scaleYAnimator.setRepeatMode(ObjectAnimator.RESTART);
             scaleYAnimator.setStartDelay(i * rippleDelay);
             scaleYAnimator.setDuration(rippleDuration);
             scaleXAnimator.setInterpolator(new AccelerateInterpolator());
             animators.add(scaleYAnimator);
-            final ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(rippleView, "Alpha", 1.0f, 0f);
+
+            ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(rippleView, View.ALPHA, 1.0f, 0f);
             alphaAnimator.setRepeatCount(ObjectAnimator.INFINITE);
             alphaAnimator.setRepeatMode(ObjectAnimator.RESTART);
             alphaAnimator.setStartDelay(i * rippleDelay);
